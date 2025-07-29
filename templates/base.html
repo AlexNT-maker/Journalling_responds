@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset ="UTF-8">
+        <title>AI Journal</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+
+    <!--The main appearance is light-mode-->
+<body class="light-mode">
+    <nav class="navbar"> 
+
+        <!--Left side: Title and links-->
+        <div class="nav-left">
+            <h1 class="logo">AI Journal</h1>
+            <a href="/" class="nav-link">Home</a>
+            <a href="/journal" class="nav-link">Journal</a>
+            <a href="/insights" class="nav-link">Insights</a>
+        </div>
+
+        <!--Right side: toggle switch-->
+        <div class="nav-right">
+            <!-- Toggle Switch -->
+             <div class="form"> 
+                <input type="checkbox" id="bubble" onclick="toggleTheme()">
+                <label class="bubble" for="bubble"></label>
+             </div>
+
+        </div>
+    </nav>
+
+    <!--Here will take place the dynamic content of each page-->
+    <div class="main-content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+
+    <!--Javascript for switch light/dark mode-->
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            body.classList.toggle("dark-mode");
+            body.classList.toggle("light-mode");
+        }
+
+    </script>
+</body>
+</html>
