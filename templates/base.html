@@ -21,10 +21,25 @@
         <!--Right side: toggle switch-->
         <div class="nav-right">
             <!-- Toggle Switch -->
-             <div class="form"> 
-                <input type="checkbox" id="bubble" onclick="toggleTheme()">
-                <label class="bubble" for="bubble"></label>
-             </div>
+            <label class="theme-switch">
+  <input type="checkbox" class="theme-switch__checkbox" onchange="toggleTheme()">
+  <div class="theme-switch__container">
+    <div class="theme-switch__clouds"></div>
+    <div class="theme-switch__stars-container">
+      🌟
+    </div>
+    <div class="theme-switch__circle-container">
+      <div class="theme-switch__sun-moon-container">
+        <div class="theme-switch__moon">
+          <div class="theme-switch__spot"></div>
+          <div class="theme-switch__spot"></div>
+          <div class="theme-switch__spot"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</label>
+
 
         </div>
     </nav>
