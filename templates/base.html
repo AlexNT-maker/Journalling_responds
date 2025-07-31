@@ -3,7 +3,10 @@
     <head>
         <meta charset ="UTF-8">
         <title>AI Journal</title>
+     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='sparkle.css') }}">
+
     </head>
 
     <!--The main appearance is light-mode-->
@@ -60,5 +63,23 @@
         }
 
     </script>
+
+    <script>
+  const RANDOM = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
+  const PARTICLES = document.querySelectorAll('.particle')
+  PARTICLES.forEach(P => {
+    P.setAttribute('style', `
+      --x: ${RANDOM(20, 80)};
+      --y: ${RANDOM(20, 80)};
+      --duration: ${RANDOM(6, 20)};
+      --delay: ${RANDOM(1, 10)};
+      --alpha: ${RANDOM(40, 90) / 100};
+      --origin-x: ${Math.random() > 0.5 ? RANDOM(300, 800) * -1 : RANDOM(300, 800)}%;
+      --origin-y: ${Math.random() > 0.5 ? RANDOM(300, 800) * -1 : RANDOM(300, 800)}%;
+      --size: ${RANDOM(40, 90) / 100};
+    `)
+  })
+</script>
+
 </body>
 </html>
