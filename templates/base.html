@@ -53,33 +53,54 @@
         {% endblock %}
     </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const body = document.body;
+        const toggle = document.querySelector('.theme-switch__checkbox');
 
-    <!--Javascript for switch light/dark mode-->
-    <script>
-        function toggleTheme() {
-            const body = document.body;
-            body.classList.toggle("dark-mode");
-            body.classList.toggle("light-mode");
+        // 1. Εφάρμοσε το αποθηκευμένο theme
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark") {
+            body.classList.add("dark-mode");
+            body.classList.remove("light-mode");
+            toggle.checked = true;
+        } else {
+            body.classList.add("light-mode");
+            body.classList.remove("dark-mode");
+            toggle.checked = false;
         }
 
-    </script>
+        // 2. Αλλαγή theme με toggle
+        toggle.addEventListener("change", function () {
+            if (toggle.checked) {
+                body.classList.add("dark-mode");
+                body.classList.remove("light-mode");
+                localStorage.setItem("theme", "dark");
+            } else {
+                body.classList.add("light-mode");
+                body.classList.remove("dark-mode");
+                localStorage.setItem("theme", "light");
+            }
+        });
 
-    <script>
-  const RANDOM = (min, max) => Math.floor(Math.random() * (max - min + 1) + min)
-  const PARTICLES = document.querySelectorAll('.particle')
-  PARTICLES.forEach(P => {
-    P.setAttribute('style', `
-      --x: ${RANDOM(20, 80)};
-      --y: ${RANDOM(20, 80)};
-      --duration: ${RANDOM(6, 20)};
-      --delay: ${RANDOM(1, 10)};
-      --alpha: ${RANDOM(40, 90) / 100};
-      --origin-x: ${Math.random() > 0.5 ? RANDOM(300, 800) * -1 : RANDOM(300, 800)}%;
-      --origin-y: ${Math.random() > 0.5 ? RANDOM(300, 800) * -1 : RANDOM(300, 800)}%;
-      --size: ${RANDOM(40, 90) / 100};
-    `)
-  })
+        // 3. Σκηνικά με particles
+        const RANDOM = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
+        const PARTICLES = document.querySelectorAll('.particle');
+        PARTICLES.forEach(P => {
+            P.setAttribute('style', `
+                --x: ${RANDOM(20, 80)};
+                --y: ${RANDOM(20, 80)};
+                --duration: ${RANDOM(6, 20)};
+                --delay: ${RANDOM(1, 10)};
+                --alpha: ${RANDOM(40, 90) / 100};
+                --origin-x: ${Math.random() > 0.5 ? RANDOM(300, 800) * -1 : RANDOM(300, 800)}%;
+                --origin-y: ${Math.random() > 0.5 ? RANDOM(300, 800) * -1 : RANDOM(300, 800)}%;
+                --size: ${RANDOM(40, 90) / 100};
+            `);
+        });
+    });
 </script>
+    
 
 </body>
 </html>

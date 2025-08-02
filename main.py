@@ -13,14 +13,25 @@ def home():
     return render_template('index.html')
 
 
-@app.route('/journal', methods = ['GET', 'POST'])
+@app.route('/journal', methods=['GET', 'POST'])
 def journal():
-    """Render the journal page."""
-    ai_response = None 
+    ai_response = ""
+    user_text = ""
+
     if request.method == 'POST':
-        user_input = request.form.get('entry')
-        ai_response = respond_as_therapist(user_input)
-    return render_template('journal.html', ai_response = ai_response)
+        user_text = request.form.get('user_text', '').strip()
+        no_reply = request.form.get('no_reply')  
+
+        if not user_text:
+            ai_response = "Text is empty, Try again!"
+        elif no_reply == 'on':  
+            ai_response = None  # No answer
+        else:
+            # Here you make AI call (mock example):
+            ai_response = f"I feel like you want to express something deeper, tell me more about this.: {user_text[:60]}..."
+
+    return render_template('journal.html', ai_response=ai_response, user_text=user_text)
+
 
 
 if __name__ == '__main__': 
