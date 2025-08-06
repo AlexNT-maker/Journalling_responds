@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, redirect
+import random
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
 def respond_as_therapist(text):
     """Dummy answer for testing"""
     return "I understand you, sometime is okay to not feel good, actually is more than just okay."
-    
+
 
 @app.route('/') 
 def home(): 
@@ -31,6 +33,24 @@ def journal():
             ai_response = f"I feel like you want to express something deeper, tell me more about this.: {user_text[:60]}..."
 
     return render_template('journal.html', ai_response=ai_response, user_text=user_text)
+
+
+@app.route('/insights')
+def insights():
+    "Render the insights page."
+    today = datetime.now() #7 days mock data 
+
+    #Creating list with dates and values, the dates go backwards so we can show them with x-axis
+    week_data = [
+        {'date' : (today - timedelta(days=i)).strftime('%Y-%m-%d'), 'mood':random.randint(4,10) }
+        for i in reversed(range(7))
+    ]
+
+    month_data = [
+        {'date' : (today - timedelta(days=i)).strftime("%Y-%m-%d"), 'mood' : random.randint(3,10) }
+        for i in reversed(range(30))
+    ]
+    return render_template('insights.html', week_data=week_data, month_data=month_data)
 
 
 
