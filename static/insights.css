@@ -1,0 +1,15 @@
+.insights-container {
+  text-align: center;
+  padding: 2rem;
+}
+
+.dropdown-container {
+  margin: 1rem auto;
+}
+
+.chart-container {
+  width: 100%;
+  max-width: 800px;
+  height: 400px;
+  margin: auto;
+}

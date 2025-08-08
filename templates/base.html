@@ -6,6 +6,7 @@
      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
      <link rel="stylesheet" href="{{ url_for('static', filename='sparkle.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='insights.css') }}">
 
     </head>
 
@@ -58,7 +59,7 @@
         const body = document.body;
         const toggle = document.querySelector('.theme-switch__checkbox');
 
-        // 1. Εφάρμοσε το αποθηκευμένο theme
+        // 1. Apply the saved theme
         const savedTheme = localStorage.getItem("theme");
         if (savedTheme === "dark") {
             body.classList.add("dark-mode");
@@ -70,7 +71,7 @@
             toggle.checked = false;
         }
 
-        // 2. Αλλαγή theme με toggle
+        // Change theme with toggle
         toggle.addEventListener("change", function () {
             if (toggle.checked) {
                 body.classList.add("dark-mode");
@@ -83,7 +84,7 @@
             }
         });
 
-        // 3. Σκηνικά με particles
+        // 3. Scenes with particles
         const RANDOM = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);
         const PARTICLES = document.querySelectorAll('.particle');
         PARTICLES.forEach(P => {

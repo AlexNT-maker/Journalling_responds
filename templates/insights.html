@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="insights-container">
+  <h2>Insights</h2>
+
+  <!-- Dropdown to select range -->
+  <div class="dropdown-container">
+    <label for="range-select">Select Range:</label>
+    <select id="range-select">
+      <option value="week">This Week</option>
+      <option value="month">This Month</option>
+    </select>
+  </div>
+
+  <!-- Plotly chart container -->
+  <div id="mood-chart" class="chart-container"></div>
+</div>
+
+<!-- Data Injection -->
+<script>
+  const weekData = {{ week_data | tojson | safe }};
+  const monthData = {{ month_data | tojson | safe }};
+</script>
+
+<!-- Insights Script -->
+<script src="{{ url_for('static', filename='js/insights.js') }}"></script>
+
+<!-- Plotly CDN -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+{% endblock %}
