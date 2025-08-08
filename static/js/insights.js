@@ -1,8 +1,13 @@
+const weekData = JSON.parse(document.getElementById("week-data").textContent);
+const monthData = JSON.parse(document.getElementById("month-data").textContent);
 let currentData = weekData;
 
 function plotMood(data) {
   const dates = data.map(d => d.date);
   const moods = data.map(d => d.mood);
+  const tooltips = data.map(d => `Date: ${d.date}<br>Mood: ${d.mood}`);
+
+
 
   const trace = {
     x: dates,
@@ -11,7 +16,9 @@ function plotMood(data) {
     mode: 'lines+markers',
     line: { color: '#636EFA' },
     marker: { size: 8 },
-    name: 'Mood'
+    name: 'Mood',
+    text : tooltips,
+    hoverinfo: 'text'
   };
 
   const layout = {

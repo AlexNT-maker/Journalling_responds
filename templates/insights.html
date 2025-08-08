@@ -17,16 +17,22 @@
   <div id="mood-chart" class="chart-container"></div>
 </div>
 
-<!-- Data Injection -->
-<script>
-  const weekData = {{ week_data | tojson | safe }};
-  const monthData = {{ month_data | tojson | safe }};
+<!-- Inject week + month data safely -->
+<script id="week-data" type="application/json">
+  {{ week_data | tojson | safe }}
 </script>
+<script id="month-data" type="application/json">
+  {{ month_data | tojson | safe }}
+</script>
+
+
+
+<!-- Plotly CDN -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 
 <!-- Insights Script -->
 <script src="{{ url_for('static', filename='js/insights.js') }}"></script>
 
-<!-- Plotly CDN -->
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
 
 {% endblock %}
