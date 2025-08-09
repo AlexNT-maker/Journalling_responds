@@ -25,6 +25,10 @@
   {{ month_data | tojson | safe }}
 </script>
 
+<script>
+  window.weekData = JSON.parse(document.getElementById('week-data').textContent);
+  window.monthData = JSON.parse(document.getElementById('month-data').textContent);
+</script>
 
 
 <!-- Plotly CDN -->
