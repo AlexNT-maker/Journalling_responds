@@ -1,20 +1,17 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request
 import random
-from datetime import datetime, timedelta, date
+from datetime import timedelta, date
 from models import MoodEntry, JournalEntry
 from extensions import db 
 from sqlalchemy import func
+from services.ai import generate_care_reply, AIResult
+from dotenv import load_dotenv
 
-
+load_dotenv()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///mood.db'
 db.init_app(app)
-
-
-def respond_as_therapist(text):
-    """Dummy answer for testing"""
-    return "I understand you, sometime is okay to not feel good, actually is more than just okay."
 
 
 @app.route('/') 
@@ -34,15 +31,26 @@ def journal():
 
         if not user_text:
             ai_response = "Text is empty, Try again!"
-        elif no_reply == 'on':  
-            ai_response = None  # No answer
+        elif no_reply == 'on':
+            ai_response = None  # Respect no reply
         else:
-            # Here you make AI call (mock example):
-            ai_response = respond_as_therapist(user_text)
+            try:
+                # Call the AI service to generate a reply
+                result: AIResult = generate_care_reply(user_text, respect_no_reply=False)
+                ai_response = result.text
 
-        #Save the text on database
+            except Exception as e:
+                # Fallback: no API key / network issue, etc.
+                print("AI ERROR", repr(e)) 
+                ai_response = (
+                    "I couldn't reach the assistant right now. "
+                    "If you want, try again in a bit — and in the meantime, "
+                    "keep writing. I'm here for you. ❤️"
+                )
+
+        #Save to DB
         if user_text:
-            new_entry = JournalEntry(user_text = user_text, ai_response = ai_response)
+            new_entry = JournalEntry(user_text=user_text, ai_response=ai_response)
             db.session.add(new_entry)
             db.session.commit()
 
