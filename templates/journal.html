@@ -9,6 +9,15 @@
 <form method="POST" class="journal-form">
     <textarea name="user_text" placeholder="Paint your voice here..." rows="8" required></textarea>
     
+    
+    {% if ai_response %}
+
+    <div class="ai-response-top">
+    <h3>My advice</h3>
+    <p>{{ ai_response }}</p>
+</div>
+{% endif %}
+
     <div class="form-actions">
         <button class="sparkle-button">
             <span class="spark"> </span>
@@ -45,13 +54,5 @@
 </div>
 
   
-
-    {% if ai_response %}
-
-    <div class="ai_response">
-    <h3>My advice</h3>
-    <p>{{ ai_response }}</p>
-</div>
-{% endif %}
 </div>
 {% endblock %}

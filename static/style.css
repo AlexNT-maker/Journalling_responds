@@ -380,9 +380,9 @@ body.dark-mode .wave {
 
 
 .journal-container {
-  max-width: 800px;
+  max-width: 600px;
   margin: 4rem auto;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 12px;
   background-color: var(--bg-secondary);
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.05);
@@ -405,9 +405,11 @@ body.dark-mode .wave {
 
 
 textarea {
-  width: 100%;
-  min-height: 180px;
-  padding: 1rem;
+  width: 95%;         
+  min-height: 120px;
+  margin: auto;        
+  display: block;
+  padding: 0.8rem;
   border: none;
   border-radius: 8px;
   background-color: var(--input-bg);
@@ -417,6 +419,7 @@ textarea {
   transition: background-color 0.3s ease;
   box-shadow: inset 0 0 8px rgba(0,0,0,0.05);
 }
+
 
 
 .submit-btn {
@@ -437,15 +440,30 @@ textarea {
 }
 
 
-.ai-response {
-  margin-top: 2.5rem;
+.ai-response-top {
+  margin-bottom: 2rem;
   padding: 1.5rem;
-  border-left: 4px solid var(--primary);
-  background-color: var(--card-bg);
-  border-radius: 8px;
+  border: 2px solid var(--primary);
+  background-color: #fdfdfd;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 500;
   color: var(--text-color);
-  font-style: italic;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.ai-response-top h3 {
+  margin: 0 0 0.8rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--primary);  
+}
+
+
+.ai-response-top p {
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
 
@@ -454,15 +472,21 @@ textarea {
 }
 
 [data-theme="dark"] textarea {
-  background-color: #2c2c2c;
-  color: #e0e0e0;
+  background-color: #1e1e1e;  
+  color: #f5f5f5;
+  border: 1px solid #444;      
 }
 
-[data-theme="dark"] .ai-response {
-  background-color: #2a2a2a;
-  color: #d0d0d0;
+
+[data-theme="dark"] .ai-response-top {
+  background-color: #1e1e1e;   
+  color: #f5f5f5;
+  border: 1px solid #444;
 }
 
+[data-theme="dark"] .ai-response-top h3 {
+  color: #6bb6ff;  
+}
 
 :root {
   --bg-secondary: #fff;
@@ -477,6 +501,10 @@ textarea {
 textarea::placeholder {
   color: var(--placeholder-color, #666);
   opacity: 1;
+}
+
+:root {
+  --text-color: #1a1a1a;
 }
 
 [data-theme="dark"] textarea::placeholder {
@@ -497,13 +525,7 @@ textarea::placeholder {
 }
 
 
-:root {
-  --text-color: #1a1a1a;
-}
 
-body.dark-mode {
-  --text-color: #1a1a1a;
-}
 
 /* By PriyanshuGupta28 on UIverse*/
 
