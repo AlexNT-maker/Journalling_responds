@@ -3,6 +3,28 @@
     <head>
         <meta charset ="UTF-8">
         <title>AI Journal</title>
+
+<script>
+(function () {
+  try {
+    const root = document.documentElement;   // <html>
+    root.classList.add('theme-boot');        // κόβει transitions + κρύβει το first paint
+
+    const saved = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const theme = (saved === 'dark' || saved === 'light') ? saved : (prefersDark ? 'dark' : 'light');
+
+    root.classList.remove('dark-mode', 'light-mode');
+    root.classList.add(theme === 'dark' ? 'dark-mode' : 'light-mode');
+    root.style.colorScheme = theme;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      root.classList.remove('theme-boot');
+    });
+  } catch {}
+})();
+</script>
+
      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
      <link rel="stylesheet" href="{{ url_for('static', filename='sparkle.css') }}">
@@ -11,7 +33,7 @@
     </head>
 
     <!--The main appearance is light-mode-->
-<body class="light-mode">
+<body>
     <nav class="navbar"> 
 
         <!--Left side: Title and links-->
@@ -55,34 +77,33 @@
     </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const body = document.body;
-        const toggle = document.querySelector('.theme-switch__checkbox');
+  document.addEventListener("DOMContentLoaded", function () {
+    const root = document.documentElement;
+    const toggle = document.querySelector('.theme-switch__checkbox');
 
-        // 1. Apply the saved theme
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme === "dark") {
-            body.classList.add("dark-mode");
-            body.classList.remove("light-mode");
-            toggle.checked = true;
-        } else {
-            body.classList.add("light-mode");
-            body.classList.remove("dark-mode");
-            toggle.checked = false;
-        }
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark") {
+      root.classList.add("dark-mode");
+      root.classList.remove("light-mode");
+      toggle.checked = true;
+    } else {
+      root.classList.add("light-mode");
+      root.classList.remove("dark-mode");
+      toggle.checked = false;
+    }
 
-        // Change theme with toggle
-        toggle.addEventListener("change", function () {
-            if (toggle.checked) {
-                body.classList.add("dark-mode");
-                body.classList.remove("light-mode");
-                localStorage.setItem("theme", "dark");
-            } else {
-                body.classList.add("light-mode");
-                body.classList.remove("dark-mode");
-                localStorage.setItem("theme", "light");
-            }
-        });
+    toggle.addEventListener("change", function () {
+      if (toggle.checked) {
+        root.classList.add("dark-mode");
+        root.classList.remove("light-mode");
+        localStorage.setItem("theme", "dark");
+      } else {
+        root.classList.add("light-mode");
+        root.classList.remove("dark-mode");
+        localStorage.setItem("theme", "light");
+      }
+    });
+
 
         // 3. Scenes with particles
         const RANDOM = (min, max) => Math.floor(Math.random() * (max - min + 1) + min);

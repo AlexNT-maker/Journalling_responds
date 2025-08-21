@@ -1,16 +1,19 @@
-body.light-mode {
+.light-mode {
     background-color: #FCFAEE;
     color: #2c2c2c;
 }
 
-body.dark-mode {
+.dark-mode {
     background-color: #1e1e1e;
     color: #f5f5f5;
 }
 
-body {
-    transition: background-color 2s ease, color 2s ease;
-}
+
+html.theme-boot { visibility: hidden; }
+html.theme-boot * { transition: none !important; }
+body { transition: background-color 2s ease, color 2s ease; } 
+
+
 
 .navbar {
     display: flex;
@@ -126,11 +129,11 @@ body {
     transition: fill 0.5s ease;
 }
 
-body.light-mode .wave {
+.light-mode .wave {
     fill: #6E7DAB;
 }
 
-body.dark-mode .wave {
+.dark-mode .wave {
     fill: #648767;
 }
 
@@ -467,26 +470,9 @@ textarea {
 }
 
 
-[data-theme="dark"] .journal-container {
-  background-color: #1c1c1c;
-}
+.dark-mode .ai-response-top h3 { color: #6bb6ff; }
+.dark-mode textarea::placeholder { color: #ccc; }
 
-[data-theme="dark"] textarea {
-  background-color: #1e1e1e;  
-  color: #f5f5f5;
-  border: 1px solid #444;      
-}
-
-
-[data-theme="dark"] .ai-response-top {
-  background-color: #1e1e1e;   
-  color: #f5f5f5;
-  border: 1px solid #444;
-}
-
-[data-theme="dark"] .ai-response-top h3 {
-  color: #6bb6ff;  
-}
 
 :root {
   --bg-secondary: #fff;
@@ -497,6 +483,7 @@ textarea {
   --subtle-text: #777;
   --card-bg: #f3f3f3;
 }
+
 
 textarea::placeholder {
   color: var(--placeholder-color, #666);
@@ -514,7 +501,6 @@ textarea::placeholder {
 :root {
   --placeholder-color: #121010;
 }
-
 
 .section-title {
   font-size: 1.8rem;
