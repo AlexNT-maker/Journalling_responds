@@ -1,13 +1,17 @@
+# services/ai.py
 import os, json, time, requests
 from dataclasses import dataclass
 from typing import Optional
 
 __all__ = ["generate_care_reply", "AIResult"]
-# Constants for AI service
 
 SYSTEM_PROMPT = (
     "You are a supportive journaling companion. "
-    "Be brief, kind, non-judgmental, and offer 1-3 practical next steps. "
+    "Be brief, kind, non-judgmental, give user a supportive answer and practical steps for support. "
+    "Also rate the user's overall mood from 1 (very negative) to 10 (very positive). "
+    "Respond ONLY as compact JSON with keys: reply (string), mood (integer 1-10). "
+    "Example: {\"reply\":\"...\",\"mood\":7} "
+    "Do not add any extra text. "
     "If the user only wants to write, acknowledge and do not analyze."
 )
 
@@ -20,6 +24,7 @@ CRISIS_KEYWORDS = {"suicide", "kill myself", "self harm", "end my life"}
 @dataclass
 class AIResult:
     text: str
+    mood: Optional[int] = None
     from_cache: bool = False
 
 def _looks_like_crisis(user_text: str) -> bool:
@@ -65,12 +70,38 @@ def _openai_completion(user_text: str) -> str:
 
 def generate_care_reply(user_text: str, respect_no_reply: bool = False) -> AIResult:
     if respect_no_reply:
-        return AIResult("I respect that. If you just want to write freely, go ahead — I'm here if you ever want feedback.")
+        return AIResult(
+            text="I respect that. If you just want to write freely, go ahead — I'm here if you ever want feedback.",
+            mood=None
+        )
 
-    reply = _openai_completion(user_text)
+    try:
+        raw = _openai_completion(user_text)
 
-    if _looks_like_crisis(user_text):
-        reply = f"{CRISIS_HINT}\n\n{reply}"
+        # Προσπάθησε να κάνεις parse το JSON. Αν δεν είναι καθαρό JSON, πάρε fallback.
+        try:
+            obj = json.loads(raw)
+            reply = (obj.get("reply") or "").strip()
+            mood = obj.get("mood")
+        except Exception:
+            reply = raw.strip()
+            mood = None
 
-    return AIResult(text=reply)
+        if isinstance(mood, (int, float)):
+            mood = int(max(1, min(10, mood)))
+        else:
+            mood = None
 
+        if _looks_like_crisis(user_text):
+            reply = f"{CRISIS_HINT}\n\n{reply}"
+
+        return AIResult(text=reply, mood=mood)
+
+    except Exception:
+        return AIResult(
+            text=(
+                "I couldn't reach the assistant right now. If you want, try again in a bit — "
+                "and in the meantime, keep writing. I'm here for you. ❤️"
+            ),
+            mood=None
+        )

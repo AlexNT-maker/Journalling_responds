@@ -22,37 +22,47 @@ def home():
 
 @app.route('/journal', methods=['GET', 'POST'])
 def journal():
+    """Render the journal page and handle user input for AI replies."""
     ai_response = ""
     user_text = ""
 
     if request.method == 'POST':
         user_text = request.form.get('user_text', '').strip()
-        no_reply = request.form.get('no_reply')  
+        no_reply = request.form.get('no_reply')
 
         if not user_text:
             ai_response = "Text is empty, Try again!"
+            result = None
         elif no_reply == 'on':
-            ai_response = None  # Respect no reply
+            ai_response = None
+            result = None
         else:
+            result = None
             try:
-                # Call the AI service to generate a reply
-                result: AIResult = generate_care_reply(user_text, respect_no_reply=False)
+                result = generate_care_reply(user_text, respect_no_reply=False)
                 ai_response = result.text
-
             except Exception as e:
-                # Fallback: no API key / network issue, etc.
-                print("AI ERROR", repr(e)) 
+                print("AI ERROR", repr(e))
                 ai_response = (
                     "I couldn't reach the assistant right now. "
                     "If you want, try again in a bit — and in the meantime, "
                     "keep writing. I'm here for you. ❤️"
                 )
 
-        #Save to DB
+        # --- save mood if provided (μία φορά την ημέρα) ---
+        if result and getattr(result, "mood", None) is not None:
+            today_d = date.today()
+            existing = MoodEntry.query.filter_by(date=today_d).first()
+            if existing:
+                existing.mood = result.mood
+            else:
+                db.session.add(MoodEntry(date=today_d, mood=result.mood))
+
+        # --- save journal entry ---
         if user_text:
-            new_entry = JournalEntry(user_text=user_text, ai_response=ai_response)
-            db.session.add(new_entry)
-            db.session.commit()
+            db.session.add(JournalEntry(user_text=user_text, ai_response=ai_response))
+
+        db.session.commit()
 
     return render_template('journal.html', ai_response=ai_response, user_text=user_text)
 
@@ -85,7 +95,7 @@ def insights():
         out = []
         cur = start_day
         while cur <= end_day:
-            mood_val = by_day_30.get(cur, None)  # None => κενό στο γράφημα
+            mood_val = by_day_30.get(cur, None)  # None => empty graph
             out.append({"date": cur.strftime("%Y-%m-%d"), "mood": mood_val})
             cur += timedelta(days=1)
         return out
