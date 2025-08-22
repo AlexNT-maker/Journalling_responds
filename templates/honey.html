@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2 class="section-title">🍯 Honey Delicacies</h2>
+<h2 class="section-title-honey">🍯 Honey Delicacies</h2>
 
 <div class="card-grid">
   <!-- Card 1 -->
@@ -46,9 +46,10 @@
 </div>
 
 <div class="honey-cta">
-  <a class="cta-btn" href="/journal">Let's go for a bear hug</a>
+<a class="cta-btn cta-btn--honey" href="/journal">Let's go for a bear hug</a>
+
 </div>
 
-<!-- JS για click/tap flip -->
+<!-- JS for click/tap flip -->
 <script src="{{ url_for('static', filename='js/honey.js') }}"></script>
 {% endblock %}

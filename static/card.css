@@ -34,3 +34,98 @@
 }
 
 .honey-cta{ text-align:center; margin: 24px 0 40px; }
+
+
+/* Honey page wrapper with subtle honeycomb */
+.honey-wrap {
+  --honey-bg: #FCFAEE;
+  --honey-line: rgba(214, 173, 93, .12);
+  background:
+    linear-gradient(30deg, var(--honey-line) 12%, transparent 12.5%) 0 0/28px 48px,
+    linear-gradient(150deg, var(--honey-line) 12%, transparent 12.5%) 0 0/28px 48px,
+    linear-gradient(90deg, var(--honey-line) 12%, transparent 12.5%) 14px 0/28px 48px;
+  background-color: var(--honey-bg);
+  border-radius: 16px;
+  padding: 20px 16px 40px;
+}
+.dark-mode .honey-wrap {
+  --honey-bg: #151515;
+  --honey-line: rgba(255, 199, 95, .08);
+}
+
+.section-title-honey{
+      font-size: 1.8rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: var(--text-color);
+  font-family: 'Playfair Display', serif;
+}
+
+
+.dark-mode .section-title-honey{
+   font-size: 1.8rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #E8CD87;
+  font-family: 'Playfair Display', serif;
+}
+
+
+/* front: warm honey gradient */
+.flip-card-front{
+  background: linear-gradient(180deg,#FFD978 0%, #FFC247 100%);
+  color:#1f1a12;
+  border: 1px solid rgba(161,118,51,.18);
+  border-radius: 16px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.12);
+}
+
+/* back: */
+.flip-card-back{
+  background: var(--bg-secondary,#fff);
+  color: var(--text-color,#222);
+  border: 1px solid rgba(0,0,0,.06);
+  border-radius: 16px;
+  padding: 1.1rem 1.2rem;
+  line-height: 1.5;
+}
+.dark-mode .flip-card-back{
+  background:#1f1f1f;
+  border-color: rgba(255,255,255,.08);
+}
+
+/* micro‑interaction */
+.flip-card{
+  transition: transform .2s ease, filter .2s ease;
+}
+.flip-card:hover{
+  transform: translateY(-3px);
+  filter: drop-shadow(0 10px 18px rgba(0,0,0,.12));
+}
+
+/* CTA button */
+.cta-btn--honey{
+  display:inline-flex; align-items:center; gap:.6rem;
+  background: linear-gradient(180deg,#3d7eae 0%, #336fa0 100%);
+  color: #fff;
+  border-radius: 999px;
+  padding: .75rem 1.25rem;
+  box-shadow: 0 10px 18px rgba(151, 135, 11, 0.25);
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,.12);
+  transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+}
+.cta-btn--honey::before{
+  content: "🧸";
+  font-size: 1.05em;
+  transform: translateY(-1px);
+}
+.cta-btn--honey:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 14px 22px rgba(0, 0, 0, 0.32);
+  filter: brightness(1.03);
+}
+.dark-mode .cta-btn--honey{
+  background: linear-gradient(180deg,#E8CD87 0%, #0a0a0a 100%);
+  box-shadow: 0 10px 18px rgba(0,0,0,.35);
+}
