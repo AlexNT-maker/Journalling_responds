@@ -2,13 +2,13 @@
 <html lang="en">
     <head>
         <meta charset ="UTF-8">
-        <title>AI Journal</title>
+        <title>BearHug Journal</title>
 
 <script>
 (function () {
   try {
-    const root = document.documentElement;   // <html>
-    root.classList.add('theme-boot');        // κόβει transitions + κρύβει το first paint
+    const root = document.documentElement;   // <html> element
+    root.classList.add('theme-boot');        // Prevent FOUC
 
     const saved = localStorage.getItem('theme');
     const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -29,6 +29,13 @@
      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
      <link rel="stylesheet" href="{{ url_for('static', filename='sparkle.css') }}">
      <link rel="stylesheet" href="{{ url_for('static', filename='insights.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='logo.css') }}">
+     <link rel="stylesheet" href="{{ url_for('static', filename='card.css') }}">
+     <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='images/bearhug-favicon-32.png') }}">
+     <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='images/bearhug-favicon-16.png') }}">
+     <link rel="icon" href="{{ url_for('static', filename='images/bearhug-favicon.ico') }}">
+     <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='images/bearhug-apple-touch-180.png') }}">
+
 
     </head>
 
@@ -36,12 +43,17 @@
 <body>
     <nav class="navbar"> 
 
+
         <!--Left side: Title and links-->
         <div class="nav-left">
-            <h1 class="logo">AI Journal</h1>
+            <h1 class="logo">
+  <img src="{{ url_for('static', filename='images/bearhug-favicon-32.png') }}" alt="BearHug" class="logo-mark">
+  BearHug Journal
+</h1>
             <a href="/" class="nav-link">Home</a>
             <a href="/journal" class="nav-link">Journal</a>
             <a href="/insights" class="nav-link">Insights</a>
+            <a href="/honey" class="nav-link">Why Honey?</a>
         </div>
 
         <!--Right side: toggle switch-->

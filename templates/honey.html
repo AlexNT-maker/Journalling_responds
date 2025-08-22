@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h2 class="section-title">🍯 Honey Delicacies</h2>
+
+<div class="card-grid">
+  <!-- Card 1 -->
+  <div class="flip-card" tabindex="0" aria-label="Why Journaling card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">🐻 Why Journaling?</div>
+      <div class="flip-card-back">
+        Writing daily is like hugging your brain. You declutter, you smile, you grow.
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 2 -->
+  <div class="flip-card" tabindex="0" aria-label="Sweet Habit card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">🍯 Sweet Habit</div>
+      <div class="flip-card-back">
+        Like bees, small drops make golden honey. 3 lines a day beat a weekly essay.
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 3 -->
+  <div class="flip-card" tabindex="0" aria-label="Mental Health card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">🌙 Mental Health</div>
+      <div class="flip-card-back">
+        Journaling lowers stress hormones; problems shrink on paper first.
+      </div>
+    </div>
+  </div>
+
+  <!-- Card 4 -->
+  <div class="flip-card" tabindex="0" aria-label="Gratitude card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">💛 Gratitude Drop</div>
+      <div class="flip-card-back">
+        Close entries with one sweet win. Memory sticks to kindness.
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="honey-cta">
+  <a class="cta-btn" href="/journal">Let's go for a bear hug</a>
+</div>
+
+<!-- JS για click/tap flip -->
+<script src="{{ url_for('static', filename='js/honey.js') }}"></script>
+{% endblock %}

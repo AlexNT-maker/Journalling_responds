@@ -104,6 +104,11 @@ def insights():
     week_data = build_series(start_7, today)
 
     return render_template('insights.html', week_data=week_data, month_data=month_data)
+    
+@app.route('/honey')
+def honey():
+    """ Renders a playful page to show you why you should hug a journal Bear. """
+    return render_template('honey.html')
 
 @app.route('/seed_moods')
 def seed_moods():
